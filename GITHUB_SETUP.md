@@ -12,10 +12,31 @@ Wenn Xcode sagt "Could not open code", liegt es daran, dass die Flutter-Struktur
 
 ## ✅ RICHTIGE WEISE - So öffnet dein Kollege das Projekt
 
+### 🚀 Schnellste Lösung - Automatisches Setup
+
+```bash
+# 1. Von GitHub klonen
+git clone https://github.com/tolgacvk70/Minute-Master.git
+cd Minute-Master
+
+# 2. Setup-Script ausführen (macht alles automatisch!)
+./ios_setup.sh
+
+# 3. Xcode öffnen
+cd ios
+open Runner.xcworkspace
+```
+
+**Fertig!** Das Script prüft Flutter, installiert Dependencies und erstellt die iOS-Struktur. ✅
+
+---
+
+### 📝 Manuelle Lösung (wenn Script nicht funktioniert)
+
 ### 1️⃣ Von GitHub klonen
 
 ```bash
-git clone <dein-github-repo-url>
+git clone https://github.com/tolgacvk70/Minute-Master.git
 cd Minute-Master
 ```
 

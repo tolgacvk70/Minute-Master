@@ -32,10 +32,28 @@ flutter run
 
 ### 3️⃣ Für iOS: Xcode öffnen
 
+#### 🚨 Wichtig: Setup zuerst!
+
+**Wenn du das Projekt von GitHub geklont hast, MUSS du zuerst das Setup ausführen!**
+
+**Automatisches Setup (Empfohlen):**
+```bash
+./ios_setup.sh
+```
+
+**Oder manuell:**
+```bash
+flutter pub get
+flutter create --platforms=ios .
+```
+
+**Dann Xcode öffnen:**
 ```bash
 cd ios
 open Runner.xcworkspace
 ```
+
+📖 **Problem mit "Could not open code"?** Siehe [QUICKSTART.md](QUICKSTART.md)
 
 **Dann**:
 - Signing konfigurieren (Apple Developer Account)
