@@ -16,13 +16,13 @@ Wir haben folgende Verbesserungen implementiert:
 
 #### **ios_setup.sh** (für Mac-Benutzer)
 - Prüft ob Flutter installiert ist
-- Installiert Flutter Dependencies
+- Installiert Flutter Abhängigkeiten
 - Erstellt die iOS-Struktur inkl. `Runner.xcworkspace`
 - Gibt klare Anweisungen zum Öffnen in Xcode
 
 #### **setup.bat** (für Windows-Benutzer)
 - Prüft ob Flutter installiert ist
-- Installiert Flutter Dependencies
+- Installiert Flutter Abhängigkeiten
 - Erstellt die Plattform-Struktur
 - Gibt Anweisungen für Android Studio / VS Code
 
