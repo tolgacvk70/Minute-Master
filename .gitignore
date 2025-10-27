@@ -43,3 +43,20 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# iOS generated files
+/ios/Pods/
+/ios/.symlinks/
+/ios/Flutter/Flutter.framework
+/ios/Flutter/Flutter.podspec
+/ios/Flutter/flutter_export_environment.sh
+/ios/ServiceDefinitions.json
+/ios/Runner/GeneratedPluginRegistrant.*
+/ios/Runner/Runner-Bridging-Header.h
+
+# macOS generated files
+/Flutter/ephemeral
+
+# Generated files
+*_generated.dart
+*.g.dart
+*.freezed.dart

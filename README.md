@@ -1,105 +1,138 @@
-# Minute Meister 🎮
+# 🎮 Minute Meister
 
 **60 Sekunden. Eine Aufgabe. 100% Chaos.**
 
-Eine schnelle, interaktive Party-App für Gruppen, bei der eine Person das Handy hält und die anderen live mitspielen!
+Schnelles Partyspiel für Gruppen - Eine Person hält das Handy, die anderen spielen live mit!
 
-## 🎯 Über die App
+---
 
-Minute Meister ist ein unterhaltsames Partyspiel, bei dem:
-- **Eine Person das Handy hält** - keine zweite App nötig!
-- **Zufällige 60-Sekunden-Aufgaben** gestellt werden
-- **Die Gruppe bewertet** und Punkte vergibt
-- **Am Ende der Minute Meister gekrönt** wird 👑
+## 📦 Von GitHub klonen
 
-## 🎨 Design
-
-Die App verwendet ein fröhliches, farbenfrohes Design mit:
-- **Rot** (#FF3B30) - Energie, Timer, Buttons
-- **Gelb** (#FFD60A) - Highlights, Punkte
-- **Blau** (#007AFF) - Hintergrund, Ruhepunkt
-- **Weiß** (#FFFFFF) - Textkontrast
-
-## 🚀 Features
-
-- ✨ Animierte Startscreen
-- 👥 Einfache Spielerverwaltung (2+ Spieler)
-- ⏱️ 60-Sekunden Countdown-Timer mit Animationen
-- ⭐ 5-Sterne Bewertungssystem
-- 📊 Live-Punktestand mit Rankings
-- 🎉 Konfetti-Feier beim Gewinner
-- 📱 Portrait-Modus optimiert
-- 🎵 Haptic Feedback & Sounds
-
-## 🎮 Spielablauf
-
-1. **Start** - Spieleranzahl auswählen
-2. **Setup** - Spielernamen eingeben
-3. **Task** - 60 Sekunden Aufgabe erfüllen
-4. **Rating** - Gruppebewertung (1-5 Sterne)
-5. **Score** - Live-Punktestand ansehen
-6. **Winner** - Minute Meister wird gekrönt! 👑
-
-## 📋 Installation
-
-### Voraussetzungen
-- Flutter SDK (>=3.0.0)
-- Dart SDK
-
-### Setup
-
-1. Repository klonen:
 ```bash
-git clone <repository-url>
+# 1. Repository klonen
+git clone https://github.com/<dein-username>/Minute-Master.git
 cd Minute-Master
+
+# 2. Flutter Dependencies installieren
+flutter pub get
+
+# 3. iOS-Struktur erstellen (falls auf Mac)
+flutter create --platforms=ios .
+
+# 4. Projekt öffnen
 ```
 
-2. Dependencies installieren:
+---
+
+## 🚀 Erste Schritte
+
+### Prüfe Flutter Installation
+
+```bash
+flutter doctor
+```
+
+### Dependencies installieren
+
 ```bash
 flutter pub get
 ```
 
-3. App starten:
+### App starten
+
 ```bash
 flutter run
 ```
 
-## 📁 Projektstruktur
+---
 
-```
-lib/
-├── main.dart                    # Entry point & State Management
-├── models/
-│   ├── game_state.dart         # Spiel-Logik & State Management
-│   └── tasks_data.dart         # Aufgaben-Datenbank
-├── screens/
-│   ├── start_screen.dart       # Startbildschirm
-│   ├── setup_screen.dart      # Spieler-Setup
-│   ├── task_screen.dart       # Aufgaben-Anzeige & Timer
-│   ├── rating_screen.dart     # Bewertungsbildschirm
-│   ├── score_screen.dart      # Punkte-Anzeige
-│   └── winner_screen.dart     # Sieger-Krönung
-├── widgets/
-│   └── bouncing_widget.dart   # Bouncing Animation Widget
-└── utils/
-    ├── audio_manager.dart     # Audio-Feedback
-    └── haptic_feedback.dart   # Haptic Feedback
+## 💻 In Xcode öffnen (Mac)
+
+**Wichtig**: Immer das `.xcworkspace` öffnen!
+
+```bash
+# iOS-Struktur erstellen
+flutter create --platforms=ios .
+
+# Xcode öffnen
+cd ios
+open Runner.xcworkspace
 ```
 
-## 🎯 Zukünftige Features
+### Wenn "Could not open code" erscheint:
 
-- 🌐 Online-Modus
-- 🤖 KI-Aufgaben-Generator
-- 🎭 Themenpacks (Filme, Sport, etc.)
-- 📱 Social Features
-- 💾 Game-Progress Speicherung
-- 🎵 Mehr Sounds & Musik
-
-## 📝 Lizenz
-
-Diese App wurde für den Privatgebrauch entwickelt.
+```bash
+# Projekt neu initialisieren
+flutter clean
+flutter pub get
+flutter create --platforms=ios .
+cd ios
+open Runner.xcworkspace
+```
 
 ---
 
-**Entwickelt mit ❤️ und 100% Chaos**
+## 📱 In Android Studio öffnen
 
+1. **File** → **Open**
+2. Ordner `Minute-Master` wählen
+3. Flutter Plugin wird automatisch erkannt
+
+---
+
+## 📚 Dokumentation
+
+- **GITHUB_SETUP.md** - Detaillierte Anleitung für Xcode
+- **START_HERE.md** - Schnellstart für Entwicklung
+- **STORE_RELEASE_GUIDE.md** - Store-Veröffentlichung
+- **SETUP_INSTRUCTIONS.md** - Erste Schritte
+
+---
+
+## ⚠️ Wichtig für deinen Kollegen
+
+Wenn Xcode "Could not open code" anzeigt:
+
+1. Prüfe, ob Flutter installiert ist: `flutter doctor`
+2. Führe aus: `flutter create --platforms=ios .`
+3. Öffne **immer** `.xcworkspace`, nicht `.xcodeproj`
+
+Siehe **GITHUB_SETUP.md** für Details!
+
+---
+
+## 🎯 Features
+
+- 6 vollständige Screens
+- 45+ Aufgaben in 3 Schwierigkeitsstufen
+- 60-Sekunden Timer mit Animationen
+- 5-Sterne-Bewertungssystem
+- Konfetti-Feier beim Gewinner
+- Haptic Feedback & Sounds
+- Buntes, fröhliches Design
+
+---
+
+## 📄 Projektstruktur
+
+```
+lib/
+├── main.dart              # App Entry Point
+├── models/                # Game Logic
+├── screens/               # 6 Flutter Screens
+├── widgets/               # Reusable Widgets
+└── utils/                 # Utilities
+```
+
+---
+
+## 🎨 Design
+
+- **Rot**: #FF3B30
+- **Gelb**: #FFD60A
+- **Blau**: #007AFF
+- **Türkis**: #40E0D0
+
+---
+
+**Viel Spaß mit Minute Meister! 🎉👑**
