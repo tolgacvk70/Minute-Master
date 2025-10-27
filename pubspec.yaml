@@ -3,6 +3,7 @@ description: Minute Meister - 60 Sekunden. Eine Aufgabe. 100% Chaos.
 publish_to: 'none'
 
 version: 1.0.0+1
+homepage: https://minutemeister.app
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
