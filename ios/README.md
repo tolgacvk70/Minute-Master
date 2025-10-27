@@ -2,6 +2,19 @@
 
 ## ⚠️ WICHTIG für GitHub
 
+### 🚨 "Could not open code" in Xcode?
+
+**Schnellste Lösung - Automatisches Setup:**
+
+```bash
+# Vom Projekt-Root-Verzeichnis:
+./ios_setup.sh
+```
+
+Das Script macht alles automatisch! ✨
+
+### Manuelle Lösung:
+
 Damit das Projekt in Xcode geöffnet werden kann, muss dein Kollege diese Befehle ausführen:
 
 ```bash
@@ -19,6 +32,8 @@ flutter create --platforms=ios .
 cd ios
 open Runner.xcworkspace
 ```
+
+📖 **Detaillierte Anleitung:** Siehe [QUICKSTART.md](../QUICKSTART.md) im Projekt-Root
 
 ## Warum?
 

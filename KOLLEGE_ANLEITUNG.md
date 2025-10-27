@@ -2,15 +2,34 @@
 
 ## 🚨 Problem: "Could not open code" in Xcode
 
-**LÖSUNG**: Führe diese Befehle aus:
+### ✅ SCHNELLSTE LÖSUNG (30 Sekunden)
 
----
-
-## ✅ SCHNELL-LÖSUNG (Kopieren & Einfügen)
+**Automatisches Setup-Script (Empfohlen):**
 
 ```bash
 # 1. Projekt von GitHub klonen
-git clone <github-url>
+git clone https://github.com/tolgacvk70/Minute-Master.git
+cd Minute-Master
+
+# 2. Setup-Script ausführen (macht alles automatisch!)
+./ios_setup.sh
+
+# 3. Xcode öffnen
+cd ios
+open Runner.xcworkspace
+```
+
+**Das war's!** ✅
+
+---
+
+## ✅ ALTERNATIVE: Manuelle Lösung
+
+Wenn das Script nicht funktioniert, manuell ausführen:
+
+```bash
+# 1. Projekt von GitHub klonen
+git clone https://github.com/tolgacvk70/Minute-Master.git
 cd Minute-Master
 
 # 2. Flutter Dependencies installieren
@@ -25,6 +44,24 @@ open Runner.xcworkspace
 ```
 
 **Das war's!** ✅
+
+---
+
+## 💡 Was macht das Setup?
+
+Das Setup-Script (`ios_setup.sh`) bzw. die manuellen Befehle:
+
+1. ✅ Prüfen ob Flutter installiert ist
+2. ✅ Flutter Dependencies installieren
+3. ✅ iOS-Projekt-Struktur erstellen (inkl. `Runner.xcworkspace`)
+4. ✅ Alles vorbereiten für Xcode
+
+### Warum ist das nötig?
+
+Flutter-Projekte enthalten iOS-spezifische Dateien, die **nicht** in Git gespeichert werden. Der Befehl `flutter create --platforms=ios .` erstellt diese Dateien automatisch.
+
+**Ohne diesen Schritt** → Xcode zeigt "Could not open code" ❌  
+**Mit diesem Schritt** → Xcode öffnet das Projekt ✅
 
 ---
 
