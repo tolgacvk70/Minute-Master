@@ -8,19 +8,40 @@ Schnelles Partyspiel für Gruppen - Eine Person hält das Handy, die anderen spi
 
 ## 📦 Von GitHub klonen
 
+### 🚨 WICHTIG für iOS/Xcode Entwicklung:
+
+**Wenn du "Could not open code" in Xcode siehst**, führe ZUERST das Setup aus!
+
+#### Schnelles Setup (Empfohlen):
 ```bash
 # 1. Repository klonen
-git clone https://github.com/<dein-username>/Minute-Master.git
+git clone https://github.com/tolgacvk70/Minute-Master.git
+cd Minute-Master
+
+# 2. Automatisches iOS Setup
+./ios_setup.sh
+
+# 3. Xcode öffnen
+cd ios && open Runner.xcworkspace
+```
+
+#### Manuelles Setup:
+```bash
+# 1. Repository klonen
+git clone https://github.com/tolgacvk70/Minute-Master.git
 cd Minute-Master
 
 # 2. Flutter Dependencies installieren
 flutter pub get
 
-# 3. iOS-Struktur erstellen (falls auf Mac)
+# 3. iOS-Struktur erstellen (WICHTIG!)
 flutter create --platforms=ios .
 
-# 4. Projekt öffnen
+# 4. Xcode öffnen
+cd ios && open Runner.xcworkspace
 ```
+
+📖 **Siehe auch:** [QUICKSTART.md](QUICKSTART.md) für detaillierte Anleitung
 
 ---
 
@@ -48,27 +69,42 @@ flutter run
 
 ## 💻 In Xcode öffnen (Mac)
 
-**Wichtig**: Immer das `.xcworkspace` öffnen!
+### ⚠️ "Could not open code" Error?
+
+**Das ist normal nach dem Klonen!** Führe zuerst das Setup aus:
 
 ```bash
-# iOS-Struktur erstellen
-flutter create --platforms=ios .
+# Schnellste Lösung - Automatisches Setup:
+./ios_setup.sh
 
-# Xcode öffnen
+# Oder manuell:
+flutter pub get
+flutter create --platforms=ios .
+```
+
+### Xcode öffnen:
+
+**Wichtig**: Immer das `.xcworkspace` öffnen, NICHT `.xcodeproj`!
+
+```bash
 cd ios
 open Runner.xcworkspace
 ```
 
-### Wenn "Could not open code" erscheint:
+### Troubleshooting:
+
+Wenn es immer noch nicht funktioniert:
 
 ```bash
-# Projekt neu initialisieren
+# Alles zurücksetzen und neu generieren
 flutter clean
 flutter pub get
 flutter create --platforms=ios .
 cd ios
 open Runner.xcworkspace
 ```
+
+📖 **Detaillierte Lösung:** Siehe [QUICKSTART.md](QUICKSTART.md)
 
 ---
 
