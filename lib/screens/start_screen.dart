@@ -1,4 +1,6 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../widgets/bouncing_widget.dart';
 
 class StartScreen extends StatefulWidget {
@@ -13,184 +15,394 @@ class StartScreen extends StatefulWidget {
   State<StartScreen> createState() => _StartScreenState();
 }
 
-class _StartScreenState extends State<StartScreen> with TickerProviderStateMixin {
+class _StartScreenState extends State<StartScreen>
+    with TickerProviderStateMixin {
   late AnimationController _titleController;
+  late AnimationController _sparkleController;
+  late AnimationController _shapeController;
   late Animation<double> _titleAnimation;
+
+  // Color palette
+  static const Color primaryCoral = Color(0xFFFF6F61);
+  static const Color secondaryViolet = Color(0xFF6B5B95);
+  static const Color accentYellow = Color(0xFFFFD700);
+  static const Color accentMint = Color(0xFF3DDC97);
+  static const Color bgBlue = Color(0xFF1E90FF);
+  static const Color bgCyan = Color(0xFF3DDCFF);
 
   @override
   void initState() {
     super.initState();
+    
+    // Title bounce animation
     _titleController = AnimationController(
-      duration: const Duration(seconds: 2),
+      duration: const Duration(milliseconds: 1500),
       vsync: this,
     )..repeat(reverse: true);
 
-    _titleAnimation = Tween<double>(begin: 1.0, end: 1.1).animate(
+    _titleAnimation = Tween<double>(begin: 1.0, end: 1.08).animate(
       CurvedAnimation(parent: _titleController, curve: Curves.easeInOut),
     );
+
+    // Sparkle animation
+    _sparkleController = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )..repeat();
+
+    // Floating shapes animation
+    _shapeController = AnimationController(
+      duration: const Duration(seconds: 8),
+      vsync: this,
+    )..repeat();
   }
 
   @override
   void dispose() {
     _titleController.dispose();
+    _sparkleController.dispose();
+    _shapeController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF007AFF),
-              Color(0xFF40E0D0),
-            ],
+      body: Stack(
+        children: [
+          // Background gradient
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [bgBlue, bgCyan],
+              ),
+            ),
           ),
-        ),
-        child: SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Spacer(flex: 2),
-                
-                // Bouncing Title
-                AnimatedBuilder(
-                  animation: _titleAnimation,
-                  builder: (context, child) {
-                    return Transform.scale(
-                      scale: _titleAnimation.value,
-                      child: child,
-                    );
-                  },
-                  child: Column(
-                    children: [
-                      const Text(
-                        'MINUTE',
-                        style: TextStyle(
-                          fontSize: 60,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFFFFD60A),
-                          shadows: [
-                            Shadow(
-                              offset: Offset(3, 3),
-                              blurRadius: 10,
-                              color: Color(0xFFFF3B30),
-                            ),
-                          ],
+
+          // Floating abstract shapes
+          ..._buildFloatingShapes(),
+
+          // Sparkles/confetti effect
+          ..._buildSparkles(),
+
+          // Main content
+          SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Spacer(flex: 3),
+
+                  // App Title with multi-color outline effect
+                  AnimatedBuilder(
+                    animation: _titleAnimation,
+                    builder: (context, child) {
+                      return Transform.scale(
+                        scale: _titleAnimation.value,
+                        child: child,
+                      );
+                    },
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        // Multi-color outline shadows - verstärkt
+                        Text(
+                          'MINUTE MASTER',
+                          style: GoogleFonts.fredokaOne(
+                            fontSize: 64,
+                            fontWeight: FontWeight.bold,
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth = 6
+                              ..color = primaryCoral.withValues(alpha: 1.0),
+                            shadows: [
+                              Shadow(
+                                offset: const Offset(-3, -3),
+                                blurRadius: 2,
+                                color: accentYellow,
+                              ),
+                              Shadow(
+                                offset: const Offset(3, 3),
+                                blurRadius: 2,
+                                color: secondaryViolet,
+                              ),
+                              Shadow(
+                                offset: const Offset(-2, 2),
+                                blurRadius: 3,
+                                color: accentMint,
+                              ),
+                              Shadow(
+                                offset: const Offset(2, -2),
+                                blurRadius: 3,
+                                color: accentYellow,
+                              ),
+                              Shadow(
+                                offset: const Offset(0, 0),
+                                blurRadius: 20,
+                                color: Colors.black.withValues(alpha: 0.5),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      const Text(
-                        'MEISTER',
-                        style: TextStyle(
-                          fontSize: 60,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFFFF3B30),
-                          shadows: [
-                            Shadow(
-                              offset: Offset(3, 3),
-                              blurRadius: 10,
-                              color: Color(0xFFFFD60A),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                
-                const SizedBox(height: 40),
-                
-                const Text(
-                  '60 Sekunden.\nEine Aufgabe.\n100% Chaos.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                    height: 1.4,
-                  ),
-                ),
-                
-                const Spacer(flex: 3),
-                
-                // Start Button
-                BouncingWidget(
-                  child: Container(
-                    width: 200,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFFD60A),
-                      borderRadius: BorderRadius.circular(35),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFFFF3B30).withOpacity(0.5),
-                          blurRadius: 20,
-                          offset: const Offset(0, 10),
+                        // Main text - größer
+                        Text(
+                          'MINUTE MASTER',
+                          style: GoogleFonts.fredokaOne(
+                            fontSize: 64,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            shadows: [
+                              Shadow(
+                                offset: const Offset(3, 3),
+                                blurRadius: 15,
+                                color: Colors.black.withValues(alpha: 0.5),
+                              ),
+                              Shadow(
+                                offset: const Offset(-1, -1),
+                                blurRadius: 8,
+                                color: primaryCoral.withValues(alpha: 0.3),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // Subtext - größer und deutlicher
+                  Text(
+                    '60 Sekunden.\nEine Aufgabe.\n100% Chaos.',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.inter(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      height: 1.5,
+                      letterSpacing: 0.3,
+                      shadows: [
+                        Shadow(
+                          offset: const Offset(2, 2),
+                          blurRadius: 8,
+                          color: Colors.black.withValues(alpha: 0.5),
+                        ),
+                        Shadow(
+                          offset: const Offset(0, 0),
+                          blurRadius: 4,
+                          color: Colors.black.withValues(alpha: 0.3),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const Spacer(flex: 4),
+
+                  // Primary Button
+                  BouncingWidget(
+                    child: Container(
+                      width: 220,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [accentYellow, Color(0xFFFFC700)],
+                        ),
                         borderRadius: BorderRadius.circular(35),
-                        onTap: widget.onStartPressed,
-                        child: const Center(
-                          child: Text(
-                            'Spiel starten',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: accentYellow.withValues(alpha: 0.6),
+                            blurRadius: 25,
+                            offset: const Offset(0, 12),
+                            spreadRadius: -5,
+                          ),
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.2),
+                            blurRadius: 15,
+                            offset: const Offset(0, 8),
+                          ),
+                        ],
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(35),
+                          onTap: widget.onStartPressed,
+                          child: Center(
+                            child: Text(
+                              'Spiel starten',
+                              style: GoogleFonts.poppins(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                letterSpacing: 0.5,
+                                shadows: [
+                                  Shadow(
+                                    offset: const Offset(1, 1),
+                                    blurRadius: 3,
+                                    color: Colors.black.withValues(alpha: 0.2),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                
-                const SizedBox(height: 40),
-                
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Regeln',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white70,
+
+                  const SizedBox(height: 32),
+
+                  // Footer links
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          // TODO: Navigate to rules
+                        },
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.white70,
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                        ),
+                        child: Text(
+                          'Regeln',
+                          style: GoogleFonts.inter(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white70,
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      '•',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white70,
+                      Text(
+                        '•',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white70,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      'Einstellungen',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white70,
+                      TextButton(
+                        onPressed: () {
+                          // TODO: Navigate to settings
+                        },
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.white70,
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                        ),
+                        child: Text(
+                          'Einstellungen',
+                          style: GoogleFonts.inter(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white70,
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                
-                const Spacer(flex: 1),
-              ],
+                    ],
+                  ),
+
+                  const Spacer(flex: 2),
+                ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
-}
 
+  List<Widget> _buildFloatingShapes() {
+    return List.generate(6, (index) {
+      final random = Random(index);
+      final size = 60.0 + random.nextDouble() * 60;
+      final colors = [primaryCoral, secondaryViolet, accentMint, accentYellow];
+      final color = colors[index % colors.length].withValues(alpha: 0.25);
+
+      return AnimatedBuilder(
+        animation: _shapeController,
+        builder: (context, child) {
+          final progress = (_shapeController.value + index * 0.2) % 1.0;
+          final angle = progress * 2 * pi;
+          
+          // Circular motion
+          final x = 0.5 + 0.3 * cos(angle + index * pi / 3);
+          final y = 0.5 + 0.3 * sin(angle + index * pi / 3);
+          
+          return Positioned(
+            left: MediaQuery.of(context).size.width * x - size / 2,
+            top: MediaQuery.of(context).size.height * y - size / 2,
+            child: Transform.rotate(
+              angle: progress * 2 * pi,
+              child: Container(
+                width: size,
+                height: size,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: index % 3 == 0 
+                      ? BoxShape.circle 
+                      : BoxShape.rectangle,
+                  borderRadius: index % 3 != 0 
+                      ? BorderRadius.circular(8) 
+                      : null,
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    });
+  }
+
+  List<Widget> _buildSparkles() {
+    return List.generate(20, (index) {
+      final random = Random(index);
+      final size = 6.0 + random.nextDouble() * 10;
+      
+      return AnimatedBuilder(
+        animation: _sparkleController,
+        builder: (context, child) {
+          final progress = (_sparkleController.value + index * 0.1) % 1.0;
+          final opacity = sin(progress * pi);
+          
+          final x = random.nextDouble();
+          final y = random.nextDouble();
+          
+          // Abwechselnde Farben für mehr Sichtbarkeit
+          final sparkleColors = [accentYellow, accentMint, Colors.white];
+          final sparkleColor = sparkleColors[index % sparkleColors.length];
+          
+          return Positioned(
+            left: MediaQuery.of(context).size.width * x,
+            top: MediaQuery.of(context).size.height * y,
+            child: Opacity(
+              opacity: opacity * 0.9,
+              child: Container(
+                width: size,
+                height: size,
+                decoration: BoxDecoration(
+                  color: sparkleColor,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: sparkleColor.withValues(alpha: 1.0),
+                      blurRadius: 12,
+                      spreadRadius: 3,
+                    ),
+                    BoxShadow(
+                      color: sparkleColor.withValues(alpha: 0.6),
+                      blurRadius: 20,
+                      spreadRadius: 5,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    });
+  }
+}

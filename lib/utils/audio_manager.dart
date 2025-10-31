@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart';
 
 class AudioManager {
   static final AudioManager _instance = AudioManager._internal();

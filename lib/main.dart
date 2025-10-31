@@ -7,9 +7,6 @@ import 'screens/rating_screen.dart';
 import 'screens/score_screen.dart';
 import 'screens/winner_screen.dart';
 import 'models/game_state.dart';
-import 'models/tasks_data.dart';
-import 'utils/audio_manager.dart';
-import 'utils/haptic_feedback.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
