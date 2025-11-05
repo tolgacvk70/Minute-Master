@@ -61,10 +61,12 @@ class _GameHomeState extends State<GameHome> {
     });
   }
 
-  void _startGame(List<String> players) {
+  void _startGame(dynamic playersData) {
+    // Cast to List to get the actual player objects
+    final List playerList = playersData as List;
     gameState = GameState(
-      players: players,
-      rounds: players.length * 2,
+      players: playerList.cast(),
+      rounds: playerList.length * 2,
     );
     gameState.startNextRound();
     _changeScreen('task');

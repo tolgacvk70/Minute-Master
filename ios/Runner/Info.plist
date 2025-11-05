@@ -36,5 +36,21 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	
+	<!-- Camera Permissions -->
+	<key>NSCameraUsageDescription</key>
+	<string>Diese App benötigt Zugriff auf deine Kamera, um Fotos von dir zu machen. Die Fotos werden nur lokal auf deinem Gerät gespeichert.</string>
+	
+	<!-- Photo Library Permissions -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Diese App benötigt Zugriff auf deine Fotogalerie, um Bilder für das Spiel auszuwählen.</string>
+	
+	<!-- Photo Library Add-Only Permission (iOS 11+) -->
+	<key>NSPhotoLibraryAddOnlyUsageDescription</key>
+	<string>Diese App kann Fotos speichern, um sie später in deiner Fotogalerie anzuschauen.</string>
+	
+	<!-- Microphone Permissions (für Video-Features in Zukunft) -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Diese App benötigt Zugriff auf das Mikrofon für zukünftige Video-Features.</string>
 </dict>
 </plist>

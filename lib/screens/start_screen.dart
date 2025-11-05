@@ -107,64 +107,62 @@ class _StartScreenState extends State<StartScreen>
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
-                        // Multi-color outline shadows - verstärkt
+                        // Outer glow
                         Text(
-                          'MINUTE MASTER',
-                          style: GoogleFonts.fredokaOne(
-                            fontSize: 64,
-                            fontWeight: FontWeight.bold,
+                          'MINUTE\nMASTER',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.righteous(
+                            fontSize: 68,
+                            fontWeight: FontWeight.w900,
+                            height: 1.1,
                             foreground: Paint()
                               ..style = PaintingStyle.stroke
-                              ..strokeWidth = 6
-                              ..color = primaryCoral.withValues(alpha: 1.0),
+                              ..strokeWidth = 15
+                              ..color = primaryCoral.withValues(alpha: _titleAnimation.value * 0.5),
                             shadows: [
                               Shadow(
-                                offset: const Offset(-3, -3),
-                                blurRadius: 2,
-                                color: accentYellow,
+                                color: primaryCoral.withValues(alpha: _titleAnimation.value),
+                                blurRadius: 40,
                               ),
                               Shadow(
-                                offset: const Offset(3, 3),
-                                blurRadius: 2,
-                                color: secondaryViolet,
-                              ),
-                              Shadow(
-                                offset: const Offset(-2, 2),
-                                blurRadius: 3,
-                                color: accentMint,
-                              ),
-                              Shadow(
-                                offset: const Offset(2, -2),
-                                blurRadius: 3,
-                                color: accentYellow,
-                              ),
-                              Shadow(
-                                offset: const Offset(0, 0),
-                                blurRadius: 20,
-                                color: Colors.black.withValues(alpha: 0.5),
+                                color: accentYellow.withValues(alpha: _titleAnimation.value * 0.7),
+                                blurRadius: 60,
                               ),
                             ],
                           ),
                         ),
-                        // Main text - größer
+                        // Stroke
                         Text(
-                          'MINUTE MASTER',
-                          style: GoogleFonts.fredokaOne(
-                            fontSize: 64,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            shadows: [
-                              Shadow(
-                                offset: const Offset(3, 3),
-                                blurRadius: 15,
-                                color: Colors.black.withValues(alpha: 0.5),
-                              ),
-                              Shadow(
-                                offset: const Offset(-1, -1),
-                                blurRadius: 8,
-                                color: primaryCoral.withValues(alpha: 0.3),
-                              ),
+                          'MINUTE\nMASTER',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.righteous(
+                            fontSize: 68,
+                            fontWeight: FontWeight.w900,
+                            height: 1.1,
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth = 3
+                              ..color = accentYellow,
+                          ),
+                        ),
+                        // Fill
+                        ShaderMask(
+                          shaderCallback: (bounds) => const LinearGradient(
+                            colors: [
+                              Colors.white,
+                              accentYellow,
+                              Colors.white,
                             ],
+                          ).createShader(bounds),
+                          child: Text(
+                            'MINUTE\nMASTER',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.righteous(
+                              fontSize: 68,
+                              fontWeight: FontWeight.w900,
+                              height: 1.1,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ],
