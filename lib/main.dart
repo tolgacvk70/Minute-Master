@@ -7,6 +7,7 @@ import 'screens/rating_screen.dart';
 import 'screens/score_screen.dart';
 import 'screens/winner_screen.dart';
 import 'models/game_state.dart';
+import 'design_system.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,19 +27,9 @@ class MinuteMasterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Minute Meister',
+      title: 'Minute Master',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-        useMaterial3: true,
-        fontFamily: 'Arial',
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFFF3B30),
-          primary: const Color(0xFFFF3B30),
-          secondary: const Color(0xFFFFD60A),
-          tertiary: const Color(0xFF007AFF),
-        ),
-      ),
+      theme: AppTheme.theme,
       home: const GameHome(),
     );
   }

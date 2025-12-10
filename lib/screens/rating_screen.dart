@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../models/game_state.dart';
+import '../design_system.dart';
 
 class RatingScreen extends StatefulWidget {
   final GameState gameState;
@@ -50,15 +51,11 @@ class _RatingScreenState extends State<RatingScreen>
   @override
   Widget build(BuildContext context) {
     final playerName = widget.gameState.getCurrentPlayerName();
-    
+
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xFF007AFF), Color(0xFF40E0D0)],
-          ),
+        decoration: BoxDecoration(
+          gradient: AppColors.backgroundGradient,
         ),
         child: SafeArea(
           child: Center(
@@ -73,21 +70,19 @@ class _RatingScreenState extends State<RatingScreen>
                     height: 120,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.3),
-                          blurRadius: 30,
-                        ),
-                      ],
+                      color: AppColors.backgroundSecondary,
+                      border: Border.all(
+                        color: AppColors.accentPrimary.withOpacity(0.3),
+                        width: 2,
+                      ),
+                      boxShadow: [AppShadows.cardMedium],
                     ),
                     child: Center(
                       child: Text(
                         playerName.substring(0, 1).toUpperCase(),
-                        style: const TextStyle(
-                          fontSize: 50,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF007AFF),
+                        style: AppTypography.displaySmall.copyWith(
+                          color: AppColors.accentPrimary,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ),
