@@ -18,6 +18,10 @@ class AppColors {
   static const Color backgroundTertiary = Color(0xFF1A1F3A);
   static const Color backgroundOverlay = Color(0xCC0A0B1E); // 80% opacity
 
+  // Highlight Surfaces (Glass / Accents)
+  static const Color surfaceGlare = Color(0x1AFFFFFF);
+  static const Color surfaceMuted = Color(0x80212546);
+
   // Primary Accent (Electric Cyan)
   static const Color accentPrimary = Color(0xFF00D4FF);
   static const Color accentPrimaryLight = Color(0xFF33E0FF);
@@ -54,9 +58,9 @@ class AppColors {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [
-      Color(0xFF0A0B1E),
-      Color(0xFF0F1125),
-      Color(0xFF0A0B1E),
+      Color(0xFF060A1A),
+      Color(0xFF111433),
+      Color(0xFF050714),
     ],
   );
 
@@ -75,6 +79,16 @@ class AppColors {
     colors: [
       Color(0x3300D4FF), // accentPrimary with 20% opacity
       Color(0x1100D4FF), // accentPrimary with 7% opacity
+    ],
+  );
+
+  static const LinearGradient heroGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [
+      Color(0xFF6C63FF),
+      Color(0xFF00D4FF),
+      Color(0xFF00FFA3),
     ],
   );
 }

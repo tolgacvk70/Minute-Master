@@ -49,273 +49,506 @@ class _SetupScreenState extends State<SetupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final canStart = _players.length >= 2;
+
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: AppColors.backgroundGradient,
         ),
         child: SafeArea(
-          child: Column(
+          child: Stack(
             children: [
-              // Header
-              Padding(
-                padding: const EdgeInsets.all(AppSpacing.lg),
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: widget.onBackPressed,
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: AppColors.textPrimary,
-                        size: 24,
-                      ),
-                      style: IconButton.styleFrom(
-                        backgroundColor: AppColors.backgroundTertiary,
-                        padding: const EdgeInsets.all(AppSpacing.sm),
-                      ),
-                    ),
-                    const SizedBox(width: AppSpacing.md),
-                    Expanded(
-                      child: Text(
-                        'Wer spielt mit?',
-                        style: AppTypography.headlineMedium,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    const SizedBox(width: AppSpacing.xl),
-                  ],
+              Positioned(
+                top: -60,
+                right: -20,
+                child: Container(
+                  width: 200,
+                  height: 200,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: AppColors.cardGlowGradient,
+                  ),
                 ),
               ),
-
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Input Section
-                      Container(
-                        decoration: BoxDecoration(
-                          color: AppColors.backgroundSecondary,
-                          borderRadius: BorderRadius.circular(AppBorders.radiusLg),
-                          border: Border.all(
-                            color: AppColors.border,
-                            width: 1,
-                          ),
-                        ),
-                        child: TextField(
-                          controller: _controller,
-                          autofocus: true,
-                          maxLength: 20,
-                          textInputAction: TextInputAction.done,
-                          style: AppTypography.bodyLarge.copyWith(
-                            color: AppColors.textPrimary,
-                          ),
-                          decoration: InputDecoration(
-                            hintText: 'Spielername eingeben...',
-                            hintStyle: AppTypography.bodyLarge.copyWith(
-                              color: AppColors.textTertiary,
-                            ),
-                            border: InputBorder.none,
-                            contentPadding: const EdgeInsets.all(AppSpacing.md),
-                            counterText: '',
-                            suffixIcon: IconButton(
-                              onPressed: _addPlayer,
-                              icon: Icon(
-                                Icons.add,
-                                color: AppColors.accentPrimary,
-                                size: 24,
-                              ),
-                            ),
-                          ),
-                          onSubmitted: (_) => _addPlayer(),
-                        ),
+              Positioned(
+                bottom: -80,
+                left: -40,
+                child: Container(
+                  width: 220,
+                  height: 220,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: AppColors.heroGradient,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x3300D4FF),
+                        blurRadius: 60,
+                        spreadRadius: 20,
                       ),
-
-                      const SizedBox(height: AppSpacing.xl),
-
-                      // Players Count
-                      if (_players.isNotEmpty) ...[
-                        Text(
-                          'Spieler (${_players.length})',
-                          style: AppTypography.titleMedium,
+                    ],
+                  ),
+                ),
+              ),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.lg,
+                      vertical: AppSpacing.md,
+                    ),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          onPressed: widget.onBackPressed,
+                          style: IconButton.styleFrom(
+                            backgroundColor: AppColors.surfaceMuted,
+                            padding: const EdgeInsets.all(AppSpacing.sm),
+                          ),
+                          icon: const Icon(
+                            Icons.chevron_left,
+                            color: Colors.white,
+                            size: 26,
+                          ),
                         ),
-                        const SizedBox(height: AppSpacing.md),
-                      ],
-
-                      // Players Display
-                      _players.isEmpty
-                          ? Container(
-                              padding: const EdgeInsets.all(AppSpacing.xl),
-                              decoration: BoxDecoration(
-                                color: AppColors.backgroundTertiary,
-                                borderRadius: BorderRadius.circular(AppBorders.radiusLg),
-                                border: Border.all(
-                                  color: AppColors.divider,
-                                  width: 1,
+                        const SizedBox(width: AppSpacing.sm),
+                        Text(
+                          'Vorbereitung',
+                          style: AppTypography.titleMedium.copyWith(
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                        const Spacer(),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: AppSpacing.md,
+                            vertical: AppSpacing.xs,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(AppBorders.radiusFull),
+                            color: AppColors.surfaceMuted,
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.flash_on,
+                                color: AppColors.accentPrimary,
+                                size: 16,
+                              ),
+                              const SizedBox(width: AppSpacing.xs),
+                              Text(
+                                'Schritt 1 / 3',
+                                style: AppTypography.labelMedium.copyWith(
+                                  color: AppColors.textPrimary,
                                 ),
                               ),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.people_outline,
-                                    color: AppColors.textTertiary,
-                                    size: 24,
-                                  ),
-                                  const SizedBox(width: AppSpacing.md),
-                                  Expanded(
-                                    child: Text(
-                                      'Füge Spieler hinzu, um zu starten',
-                                      style: AppTypography.bodyMedium.copyWith(
-                                        color: AppColors.textSecondary,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          : GridView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: AppSpacing.md,
-                                mainAxisSpacing: AppSpacing.md,
-                                childAspectRatio: 1.1,
-                              ),
-                              itemCount: _players.length,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  padding: const EdgeInsets.all(AppSpacing.md),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.backgroundSecondary,
-                                    borderRadius: BorderRadius.circular(AppBorders.radiusLg),
-                                    border: Border.all(
-                                      color: AppColors.divider,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 40,
-                                        height: 40,
-                                        decoration: BoxDecoration(
-                                          color: AppColors.accentPrimary.withOpacity(0.1),
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            _players[index][0].toUpperCase(),
-                                            style: AppTypography.titleMedium.copyWith(
-                                              color: AppColors.accentPrimary,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(height: AppSpacing.sm),
-                                      Text(
-                                        _players[index],
-                                        style: AppTypography.bodyMedium,
-                                        textAlign: TextAlign.center,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      const SizedBox(height: AppSpacing.sm),
-                                      IconButton(
-                                        onPressed: () => _removePlayer(index),
-                                        icon: Icon(
-                                          Icons.close,
-                                          color: AppColors.textTertiary,
-                                          size: 20,
-                                        ),
-                                        constraints: const BoxConstraints(
-                                          minWidth: 32,
-                                          minHeight: 32,
-                                        ),
-                                        padding: EdgeInsets.zero,
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-
-                      if (_players.length < 2 && _players.isNotEmpty)
-                        Padding(
-                          padding: const EdgeInsets.only(top: AppSpacing.lg),
-                          child: Container(
-                            padding: const EdgeInsets.all(AppSpacing.md),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(AppSpacing.lg),
                             decoration: BoxDecoration(
-                              color: AppColors.warning.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(AppBorders.radiusMd),
+                              borderRadius: BorderRadius.circular(AppBorders.radiusXxl),
+                              gradient: AppColors.heroGradient,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.accentSecondary.withOpacity(0.2),
+                                  blurRadius: 30,
+                                  spreadRadius: 1,
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Wer spielt heute?',
+                                  style: AppTypography.displaySmall,
+                                ),
+                                const SizedBox(height: AppSpacing.sm),
+                                Text(
+                                  'Füge alle Namen hinzu, damit Minute Master die Runden automatisch verteilt.',
+                                  style: AppTypography.bodyMedium.copyWith(
+                                    color: AppColors.textPrimary.withOpacity(0.9),
+                                  ),
+                                ),
+                                const SizedBox(height: AppSpacing.md),
+                                Wrap(
+                                  spacing: AppSpacing.sm,
+                                  runSpacing: AppSpacing.sm,
+                                  children: const [
+                                    _TipChip(label: 'Mind. 2 Spieler'),
+                                    _TipChip(label: 'Namen max. 20 Zeichen'),
+                                    _TipChip(label: 'Offline speicherbar'),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: AppSpacing.xxl),
+                          Text(
+                            'Spielerliste',
+                            style: AppTypography.titleLarge,
+                          ),
+                          const SizedBox(height: AppSpacing.sm),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(AppBorders.radiusXl),
+                              color: AppColors.backgroundSecondary.withOpacity(0.9),
                               border: Border.all(
-                                color: AppColors.warning.withOpacity(0.3),
-                                width: 1,
+                                color: AppColors.surfaceMuted,
                               ),
                             ),
                             child: Row(
                               children: [
-                                Icon(
-                                  Icons.info_outline,
-                                  color: AppColors.warning,
-                                  size: 20,
+                                Expanded(
+                                  child: TextField(
+                                    controller: _controller,
+                                    autofocus: true,
+                                    maxLength: 20,
+                                    style: AppTypography.bodyLarge,
+                                    decoration: InputDecoration(
+                                      counterText: '',
+                                      border: InputBorder.none,
+                                      hintText: 'Spielername eingeben...',
+                                      hintStyle: AppTypography.bodyLarge.copyWith(
+                                        color: AppColors.textSecondary,
+                                      ),
+                                      contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: AppSpacing.md,
+                                        vertical: AppSpacing.md,
+                                      ),
+                                    ),
+                                    onSubmitted: (_) => _addPlayer(),
+                                  ),
                                 ),
-                                const SizedBox(width: AppSpacing.sm),
-                                Text(
-                                  'Mindestens 2 Spieler erforderlich',
-                                  style: AppTypography.bodySmall.copyWith(
-                                    color: AppColors.warning,
+                                Container(
+                                  margin: const EdgeInsets.all(AppSpacing.xs),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(AppBorders.radiusLg),
+                                    gradient: AppColors.accentGradient,
+                                  ),
+                                  child: IconButton(
+                                    onPressed: _addPlayer,
+                                    icon: const Icon(Icons.add),
+                                    color: AppColors.backgroundPrimary,
                                   ),
                                 ),
                               ],
                             ),
                           ),
+                          const SizedBox(height: AppSpacing.md),
+                          Wrap(
+                            spacing: AppSpacing.sm,
+                            children: [
+                              _SuggestedNameChip(label: 'Lena', onTap: () {
+                                _controller.text = 'Lena';
+                              }),
+                              _SuggestedNameChip(label: 'Max', onTap: () {
+                                _controller.text = 'Max';
+                              }),
+                              _SuggestedNameChip(label: 'Rafi', onTap: () {
+                                _controller.text = 'Rafi';
+                              }),
+                            ],
+                          ),
+                          const SizedBox(height: AppSpacing.xl),
+                          AnimatedSwitcher(
+                            duration: AppMotion.normal,
+                            child: _players.isEmpty
+                                ? Container(
+                                    key: const ValueKey('placeholder'),
+                                    padding: const EdgeInsets.all(AppSpacing.lg),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(AppBorders.radiusXl),
+                                      color: AppColors.backgroundTertiary.withOpacity(0.8),
+                                      border: Border.all(color: AppColors.surfaceMuted),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.group_add,
+                                          color: AppColors.textTertiary,
+                                        ),
+                                        const SizedBox(width: AppSpacing.md),
+                                        Expanded(
+                                          child: Text(
+                                            'Noch keine Spieler.\nFüge mindestens zwei Personen hinzu, um loszulegen.',
+                                            style: AppTypography.bodyMedium.copyWith(
+                                              color: AppColors.textSecondary,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : GridView.builder(
+                                    key: const ValueKey('grid'),
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: AppSpacing.md,
+                                      mainAxisSpacing: AppSpacing.md,
+                                      childAspectRatio: 1.1,
+                                    ),
+                                    itemCount: _players.length,
+                                    itemBuilder: (context, index) {
+                                      return _PlayerCard(
+                                        name: _players[index],
+                                        onRemove: () => _removePlayer(index),
+                                      );
+                                    },
+                                  ),
+                          ),
+                          if (!canStart && _players.isNotEmpty) ...[
+                            const SizedBox(height: AppSpacing.lg),
+                            Container(
+                              padding: const EdgeInsets.all(AppSpacing.md),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(AppBorders.radiusLg),
+                                color: AppColors.warning.withOpacity(0.1),
+                                border: Border.all(
+                                  color: AppColors.warning.withOpacity(0.3),
+                                ),
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.info_outline,
+                                    color: AppColors.warning,
+                                  ),
+                                  const SizedBox(width: AppSpacing.sm),
+                                  Expanded(
+                                    child: Text(
+                                      'Mindestens zwei Spieler erforderlich',
+                                      style: AppTypography.bodySmall.copyWith(
+                                        color: AppColors.warning,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                          const SizedBox(height: AppSpacing.xxxl),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(AppSpacing.lg),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                '${_players.length} Spieler bereit',
+                                style: AppTypography.titleMedium.copyWith(
+                                  color: AppColors.textSecondary,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.md,
+                                vertical: AppSpacing.xs,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(AppBorders.radiusFull),
+                                color: AppColors.backgroundSecondary,
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    canStart ? Icons.check_circle : Icons.hourglass_bottom,
+                                    color: canStart
+                                        ? AppColors.accentPrimary
+                                        : AppColors.textTertiary,
+                                    size: 18,
+                                  ),
+                                  const SizedBox(width: AppSpacing.xs),
+                                  Text(
+                                    canStart ? 'Bereit' : 'Noch nicht bereit',
+                                    style: AppTypography.labelMedium.copyWith(
+                                      color: AppColors.textPrimary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-
-                      const SizedBox(height: AppSpacing.xxxl),
-                    ],
-                  ),
-                ),
-              ),
-
-              // Start Button
-              Padding(
-                padding: const EdgeInsets.all(AppSpacing.lg),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: _players.length >= 2 ? _startGame : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: _players.length >= 2
-                          ? AppColors.accentPrimary
-                          : AppColors.backgroundTertiary,
-                      foregroundColor: _players.length >= 2
-                          ? AppColors.textPrimary
-                          : AppColors.textTertiary,
-                      elevation: 0,
-                      shadowColor: Colors.transparent,
-                      padding: const EdgeInsets.symmetric(
-                        vertical: AppSpacing.lg,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(AppBorders.radiusXl),
-                      ),
-                      minimumSize: const Size(double.infinity, 56),
-                    ),
-                    child: Text(
-                      'Los geht\'s!',
-                      style: AppTypography.labelLarge.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                        const SizedBox(height: AppSpacing.md),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: canStart ? _startGame : null,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: canStart
+                                  ? AppColors.accentPrimary
+                                  : AppColors.backgroundTertiary,
+                              foregroundColor: AppColors.textPrimary,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: AppSpacing.lg,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(AppBorders.radiusXxl),
+                              ),
+                            ),
+                            child: Text(
+                              'Weiter zur Aufgabe',
+                              style: AppTypography.labelLarge.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
+                ],
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _PlayerCard extends StatelessWidget {
+  final String name;
+  final VoidCallback onRemove;
+
+  const _PlayerCard({
+    required this.name,
+    required this.onRemove,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: AppMotion.normal,
+      padding: const EdgeInsets.all(AppSpacing.md),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(AppBorders.radiusXl),
+        color: AppColors.backgroundSecondary.withOpacity(0.9),
+        border: Border.all(color: AppColors.surfaceGlare),
+        boxShadow: const [AppShadows.cardLow],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: AppColors.accentGradient,
+            ),
+            child: Center(
+              child: Text(
+                name[0].toUpperCase(),
+                style: AppTypography.titleMedium.copyWith(
+                  color: AppColors.backgroundPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            name,
+            style: AppTypography.bodyMedium,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          TextButton(
+            onPressed: onRemove,
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.zero,
+              minimumSize: const Size(40, 24),
+            ),
+            child: Text(
+              'Entfernen',
+              style: AppTypography.labelSmall.copyWith(
+                color: AppColors.textTertiary,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SuggestedNameChip extends StatelessWidget {
+  final String label;
+  final VoidCallback onTap;
+
+  const _SuggestedNameChip({
+    required this.label,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md,
+          vertical: AppSpacing.xs,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(AppBorders.radiusFull),
+          color: AppColors.surfaceMuted,
+          border: Border.all(color: AppColors.surfaceGlare),
+        ),
+        child: Text(
+          label,
+          style: AppTypography.labelMedium.copyWith(
+            color: AppColors.textSecondary,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _TipChip extends StatelessWidget {
+  final String label;
+
+  const _TipChip({required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.md,
+        vertical: AppSpacing.xs,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(AppBorders.radiusFull),
+        color: AppColors.surfaceGlare,
+      ),
+      child: Text(
+        label,
+        style: AppTypography.labelSmall.copyWith(
+          color: AppColors.textPrimary,
         ),
       ),
     );
